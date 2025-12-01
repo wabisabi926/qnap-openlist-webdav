@@ -188,7 +188,7 @@ jobs:
       #       *.md5
 
       - name: Release
-        if: ( steps.prep.outputs.version != steps.prep.outputs.current ) && startsWith(github.ref, 'refs/tags/')
+        if: steps.prep.outputs.version != steps.prep.outputs.current )
         uses: softprops/action-gh-release@v1
         with:
           files: |
