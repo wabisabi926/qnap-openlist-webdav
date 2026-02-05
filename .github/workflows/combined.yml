@@ -191,7 +191,7 @@ jobs:
         if: steps.prep.outputs.version != steps.prep.outputs.current
         uses: softprops/action-gh-release@v1
         with:
-          tag_name: ${{ steps.prep.outputs.version }}
+          tag_name: v${{ steps.prep.outputs.version }}
           files: |
             *.qpkg
             *.md5
