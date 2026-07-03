@@ -111,13 +111,15 @@ jobs:
         uses: actions/github-script@v6
         env:
           VERSION: ${{ steps.prep.outputs.version }}
+          UPSTREAM_URL: ${{ steps.upstream.outputs.html_url }}
+          UPSTREAM_BODY: ${{ steps.upstream.outputs.body }}
         with:
           script: |
             const owner = context.repo.owner;
             const repo = context.repo.repo;
             const tag_name = `v${process.env.VERSION}`;
-            const upstream_url = `${{ steps.upstream.outputs.html_url }}`;
-            const upstream_body = `${{ steps.upstream.outputs.body }}`;
+            const upstream_url = process.env.UPSTREAM_URL || '';
+            const upstream_body = process.env.UPSTREAM_BODY || '';
             const body = `Sync from OpenListTeam/OpenList release ${tag_name}\n\nUpstream: ${upstream_url}\n\n${upstream_body}`;
             try {
               const existing = await github.rest.repos.getReleaseByTag({ owner, repo, tag: tag_name });
